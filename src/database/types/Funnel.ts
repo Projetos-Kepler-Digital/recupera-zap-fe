@@ -1,31 +1,32 @@
-import { Timestamp } from "firebase/firestore";
+import { Timestamp } from 'firebase/firestore';
 
-export type Getaway =
-  | "Hotmart"
-  | "Monetize"
-  | "Kiwify"
-  | "Perfectpay"
-  | "Edduz"
-  | "Pepper";
+export type Getaway = 'Hotmart' | 'Kiwify' | 'Perfectpay' | 'Edduz';
+// | 'Monetize'
+// | "Pepper"
 
 const events = [
-  "Aguardando pagamento",
-  "Pagamento reprovado",
-  "Pagamento aprovado",
-  "Carrinho abandonado",
-  "Reembolso",
+  'Aguardando pagamento',
+  'Pagamento reprovado',
+  'Pagamento aprovado',
+  'Carrinho abandonado',
+  'Reembolso',
 ];
 
 export const Events = {
   Hotmart: [
-    "Carrinho abandonado",
-    "Compra aprovada",
-    "Aguardandando pagamento",
+    'Carrinho abandonado',
+    'Compra aprovada',
+    'Aguardandando pagamento',
   ],
   Monetize: events,
   Kiwify: events,
   Perfectpay: events,
-  Edduz: events,
+  Edduz: [
+    'Aguardando pagamento',
+    'Pagamento aprovado',
+    'Carrinho abandonado',
+    'Reembolso',
+  ],
   Pepper: events,
 };
 

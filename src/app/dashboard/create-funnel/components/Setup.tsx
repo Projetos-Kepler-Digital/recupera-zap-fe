@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from 'react';
 
 import {
   Box,
@@ -14,32 +14,32 @@ import {
   Checkbox,
   CheckboxProps,
   useToast,
-} from "@chakra-ui/react";
-import { ChevronDownIcon } from "@chakra-ui/icons";
-import { Input } from "@/components/Input";
+} from '@chakra-ui/react';
+import { ChevronDownIcon } from '@chakra-ui/icons';
+import { Input } from '@/components/Input';
 
-import { useForm, SubmitHandler } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
-import type { Step } from "../CreateFunnelModal";
-import { Events, type Funnel, type Getaway } from "@/database/types/Funnel";
+import type { Step } from '../CreateFunnelModal';
+import { Events, type Funnel, type Getaway } from '@/database/types/Funnel';
 
 type FormData = {
   name: string;
 };
 
 const validationSchema = yup.object().shape({
-  name: yup.string().required("O campo nome é obrigatório."),
+  name: yup.string().required('O campo nome é obrigatório.'),
 });
 
 const Getaways: Getaway[] = [
-  "Hotmart",
-  "Monetize",
-  "Kiwify",
-  "Perfectpay",
-  "Edduz",
-  "Pepper",
+  'Hotmart',
+  // "Monetize",
+  'Kiwify',
+  'Perfectpay',
+  'Edduz',
+  // "Pepper",
 ];
 
 interface MyCheckBoxProps extends CheckboxProps {
@@ -55,9 +55,9 @@ const MyCheckBox = ({ children, ...rest }: MyCheckBoxProps) => {
         color="text.secondary"
         fontWeight="400"
         _checked={{
-          color: "text.primary",
-          fontWeight: "500",
-          borderColor: "black.100",
+          color: 'text.primary',
+          fontWeight: '500',
+          borderColor: 'black.100',
         }}
         {...rest}
       >
@@ -79,12 +79,12 @@ export const Setup: React.FC<SetupProps> = ({ setStep, funnel, setFunnel }) => {
   const { register, handleSubmit, formState } = useForm<FormData>({
     resolver: yupResolver(validationSchema),
     defaultValues: {
-      name: funnel.name ?? "",
+      name: funnel.name ?? '',
     },
   });
   const { errors } = formState;
 
-  const [getaway, setGetaway] = useState<Getaway>(funnel.getaway ?? "Hotmart");
+  const [getaway, setGetaway] = useState<Getaway>(funnel.getaway ?? 'Hotmart');
 
   const [checkedEvents, setCheckedEvents] = useState<{
     [key: string]: boolean;
@@ -98,13 +98,13 @@ export const Setup: React.FC<SetupProps> = ({ setStep, funnel, setFunnel }) => {
   const onSubmit: SubmitHandler<FormData> = async ({ name }) => {
     if (!Object.values(checkedEvents).some((value) => value === true)) {
       toast({
-        title: "Valores inválidos",
-        description: "Selecione ao menos um evento de ativação.",
-        status: "error",
+        title: 'Valores inválidos',
+        description: 'Selecione ao menos um evento de ativação.',
+        status: 'error',
         duration: 4000,
         containerStyle: {
-          bgColor: "red",
-          borderRadius: "md",
+          bgColor: 'red',
+          borderRadius: 'md',
         },
       });
 
@@ -124,7 +124,7 @@ export const Setup: React.FC<SetupProps> = ({ setStep, funnel, setFunnel }) => {
       };
     });
 
-    setStep("shoot");
+    setStep('shoot');
   };
 
   const DropdownItem = (option: Getaway, key: number) => {
@@ -135,9 +135,9 @@ export const Setup: React.FC<SetupProps> = ({ setStep, funnel, setFunnel }) => {
         }}
         key={key}
         color="text.secondary"
-        _hover={{ backgroundColor: "white", opacity: 0.7 }}
-        _active={{ backgroundColor: "white", opacity: 0.7 }}
-        _focus={{ backgroundColor: "white" }}
+        _hover={{ backgroundColor: 'white', opacity: 0.7 }}
+        _active={{ backgroundColor: 'white', opacity: 0.7 }}
+        _focus={{ backgroundColor: 'white' }}
       >
         {option}
       </MenuItem>
@@ -155,7 +155,7 @@ export const Setup: React.FC<SetupProps> = ({ setStep, funnel, setFunnel }) => {
       <Input
         label="Nome do funil"
         placeholder="Nome do funil"
-        {...register("name")}
+        {...register('name')}
         error={errors.name}
         borderRadius="xl"
       />
@@ -231,7 +231,7 @@ export const Setup: React.FC<SetupProps> = ({ setStep, funnel, setFunnel }) => {
         fontWeight="700"
         fontSize="xs"
         textTransform="uppercase"
-        _hover={{ textDecoration: "none", opacity: 0.9 }}
+        _hover={{ textDecoration: 'none', opacity: 0.9 }}
         _active={{ opacity: 0.9 }}
       >
         Continuar

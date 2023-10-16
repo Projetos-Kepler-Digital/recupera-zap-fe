@@ -1,15 +1,15 @@
-import { kiwify } from "./kiwify";
-import { pepper } from "./pepper";
-import { edduz } from "./edduz";
-import { perfectpay } from "./perfectpay";
-import { monetize } from "./monetize";
-import { hotmart } from "./hotmart";
+import { kiwify } from './kiwify';
+import { pepper } from './pepper';
+import { eduzz } from './eduzz';
+import { perfectpay } from './perfectpay';
+import { monetize } from './monetize';
+import { hotmart } from './hotmart';
 
-import type { Getaway } from "@/database/types/Funnel";
-import type { Lead } from "@/database/types/Lead";
+import type { Getaway } from '@/database/types/Funnel';
+import type { Lead } from '@/database/types/Lead';
 
 export type Data = {
-  type: "recover" | "buy";
+  type: 'recover' | 'buy';
   event: string | null;
   revenue?: number;
   lead: Lead;
@@ -20,7 +20,7 @@ const functions = {
   hotmart,
   monetize,
   perfectpay,
-  edduz,
+  eduzz,
   pepper,
 };
 

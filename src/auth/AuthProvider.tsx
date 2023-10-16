@@ -4,30 +4,30 @@ import React, {
   createContext,
   useEffect,
   useState,
-} from "react";
+} from 'react';
 
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 
-import { auth } from "../database";
+import { auth } from '../database';
 import {
   Auth,
   UserCredential,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut as FirebaseSignOut,
-} from "firebase/auth";
+} from 'firebase/auth';
 
-import { recover } from "./recover";
-import { useCookies } from "@/hooks/useCookies";
+import { recover } from './recover';
+import { useCookies } from '@/hooks/useCookies';
 
-import type { User } from "@/database/types/User";
+import type { User } from '@/database/types/User';
 
-import { getUserOnSnapshot } from "@/database/functions";
-import axios from "axios";
-import { Timestamp } from "firebase/firestore";
+import { getUserOnSnapshot } from '@/database/functions';
+import axios from 'axios';
+import { Timestamp } from 'firebase/firestore';
 
-type SignInProps = Pick<User, "email"> & { password: string };
-type SignUpProps = Pick<User, "email" | "name"> & { password: string };
+type SignInProps = Pick<User, 'email'> & { password: string };
+type SignUpProps = Pick<User, 'email' | 'name'> & { password: string };
 
 export interface AuthContextModel {
   auth: Auth;
@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const userCookie = readCookie("user.token");
+    const userCookie = readCookie('user.token');
 
     if (!!userCookie) {
       recover({ email: userCookie }).then((user) => {
@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         });
       });
     }
-  }, []);
+  }, [readCookie]);
 
   async function signUp(
     userId: string,
@@ -89,19 +89,19 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     );
 
     if (save) {
-      createCookie("user.token", email, {
+      createCookie('user.token', email, {
         maxAge: 60 * 60 * 24 * 7,
       });
     }
 
-    await axios.post("/api/rest/user/create-user", {
+    await axios.post('/api/rest/user/create-user', {
       userId,
       name,
     });
 
     setUser({ id: userId, dueDate, email, name });
 
-    await router.push("/dashboard");
+    await router.push('/dashboard');
 
     return userCredential;
   }
@@ -120,14 +120,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
 
     if (save) {
-      createCookie("user.token", user.email, {
+      createCookie('user.token', user.email, {
         maxAge: 60 * 60 * 24 * 7,
       });
     }
 
     setUser(user);
 
-    await router.push("/dashboard");
+    await router.push('/dashboard');
 
     return userCredential;
   }
@@ -135,11 +135,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   async function signOut() {
     await FirebaseSignOut(auth);
 
-    deleteCookie("user.token");
+    deleteCookie('user.token');
 
     setUser(null);
 
-    await router.push("/auth/login");
+    await router.push('/auth/login');
   }
 
   const values: AuthContextModel = {
